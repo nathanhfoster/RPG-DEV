@@ -28,6 +28,7 @@ int main(void)
 	std::vector<Item> itemAtlas;
 	std::vector<Weapon> weaponAtlas;
 	std::vector<Armour> armourAtlas;
+	std::vector<SpellBook> spellAtlas;
 	std::vector<Area> areaAtlas;
 
 	Creature player;
@@ -37,7 +38,8 @@ int main(void)
 	buildatlas_item(itemAtlas);
 	buildatlas_weapon(weaponAtlas);
 	buildatlas_armour(armourAtlas);
-	buildatlas_area(areaAtlas, itemAtlas, weaponAtlas, armourAtlas, creatureAtlas);
+	buildatlas_spell(spellAtlas);
+	buildatlas_area(areaAtlas, itemAtlas, weaponAtlas, armourAtlas, spellAtlas, creatureAtlas);
 
 	// Seed the random number generator with the system time, so the
 	// random numbers produced by rand() will be different each time
@@ -180,7 +182,7 @@ void dialogue_menu(Creature& player)
 	// Output the menu
 	int result = Dialogue(
 		"Menu\n====",
-		{ "Items", "Equipment", "Character" }).activate();
+		{ "Items", "Equipment / Spells", "Character" }).activate();
 
 	switch (result)
 	{
@@ -212,10 +214,14 @@ void dialogue_menu(Creature& player)
 			<< (player.equippedWeapon != nullptr ?
 			player.equippedWeapon->name : "Nothing")
 			<< std::endl;
+		std::cout << "Spells: "
+			<< (player.learnedSpell != nullptr ?
+				player.learnedSpell->name : "Nothing")
+			<< std::endl;
 
 		int result2 = Dialogue(
 			"",
-			{ "Equip Armour", "Equip Weapon", "Close" }).activate();
+			{ "Equip Armour", "Equip Weapon", "Equip Spell", "Close" }).activate();
 
 		// Equipping armour
 		if (result2 == 1)
@@ -272,6 +278,33 @@ void dialogue_menu(Creature& player)
 						if (i++ == userInput)
 						{
 							player.equipWeapon(it.first);
+							break;
+						}
+					}
+				}
+			}
+		}
+		// Equip a weapon, using the same algorithms as for armour
+		else if (result2 == 3)
+		{
+			int userInput = 0;
+			int numItems = player.inventory.print_spells(true);
+
+			if (numItems == 0) break;
+
+			while (!userInput)
+			{
+				std::cout << "Equip which spell?" << std::endl;
+				std::cin >> userInput;
+				if (userInput >= 1 && userInput <= numItems)
+				{
+					int i = 1;
+
+					for (auto it : player.inventory.spells)
+					{
+						if (i++ == userInput)
+						{
+							player.learnSpell(it.first);
 							break;
 						}
 					}

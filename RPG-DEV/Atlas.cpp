@@ -36,9 +36,18 @@ void buildatlas_armour(std::vector<Armour>& atlas)
 	return;
 }
 
+void buildatlas_spell(std::vector<SpellBook>& atlas)
+{
+	// Spell(Name, Description, Die Quatity, Die Sides)
+	atlas.push_back(SpellBook("Ball of Flames", "A devestating fire attack", 1, 4));
+	atlas.push_back(SpellBook("Harm Touch", "One touch", 6, 6));
+
+	return;
+}
+
 void buildatlas_area(std::vector<Area>& atlas,
 	std::vector<Item>& items, std::vector<Weapon>& weapons,
-	std::vector<Armour>& armour, std::vector<Creature>& creatures)
+	std::vector<Armour>& armour, std::vector<SpellBook>& spells, std::vector<Creature>& creatures)
 {
 	// Area definitions are somewhat more complicated:
 	atlas.push_back(Area(Dialogue(			// Standard dialogue definiton
@@ -57,6 +66,10 @@ void buildatlas_area(std::vector<Area>& atlas,
 	{
 		std::make_pair(&armour[0], 1),
 		std::make_pair(&armour[1], 1)// Pair of armour and quantity
+	},
+	{
+		std::make_pair(&spells[0], 1),	// Pair of spell and quantity
+		std::make_pair(&spells[1], 1)
 	}),
 	{									// Creatures
 	}));
@@ -68,6 +81,8 @@ void buildatlas_area(std::vector<Area>& atlas,
 	{
 		std::make_pair(&items[0], 10),
 		std::make_pair(&items[1], 1)
+	},
+	{
 	},
 	{
 	},

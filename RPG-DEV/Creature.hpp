@@ -4,6 +4,7 @@
 #include "Inventory.hpp"
 #include "Weapon.hpp"
 #include "Armour.hpp"
+#include "SpellBook.hpp"
 
 #include <string>
 
@@ -47,6 +48,9 @@ public:
 	// Armour currently equipped into each slot
 	Armour* equippedArmour[Armour::Slot::N];
 
+	// Spells currently learned
+	SpellBook* learnedSpell;
+
 	Creature(std::string name, int health, int armourClass, int attackMod, int DamageMod, 
 		int str, int end, int dex, unsigned int level = 1, std::string className = "")
 	{
@@ -64,6 +68,7 @@ public:
 		this->equippedArmour[Armour::Slot::TORSO] = nullptr;
 		this->equippedArmour[Armour::Slot::LEGS] = nullptr;
 		this->equippedWeapon = nullptr;
+		this->learnedSpell = nullptr;
 		this->level = level;
 		this->exp = 0;
 	}
@@ -113,6 +118,20 @@ public:
 		this->equippedArmour[(int)armour->slot] = armour;
 		this->health += armour->healthBoost;
 		this->maxHealth += armour->healthBoost;
+
+		return;
+	}
+
+	void learnSpell(SpellBook* spell)
+	{
+		// If spell is already learned 
+		// unlearn it and remove it's modifiers
+		if (this->learnedSpell != nullptr)
+		{
+			this->learnedSpell = nullptr;
+		}
+
+		this->learnedSpell = spell;
 
 		return;
 	}

@@ -4,6 +4,7 @@
 #include "Item.hpp"
 #include "Weapon.hpp"
 #include "Armour.hpp"
+#include "SpellBook.hpp"
 
 #include <list>
 #include <utility>
@@ -23,6 +24,7 @@ public:
 	std::list<std::pair<Item*, int>> items;
 	std::list<std::pair<Weapon*, int>> weapons;
 	std::list<std::pair<Armour*, int>> armour;
+	std::list<std::pair<SpellBook*, int>> spells;
 
 	Inventory()
 	{
@@ -30,11 +32,13 @@ public:
 
 	Inventory(std::list<std::pair<Item*, int>> items,
 		std::list<std::pair<Weapon*, int>> weapons,
-		std::list<std::pair<Armour*, int>> armour)
+		std::list<std::pair<Armour*, int>> armour,
+		std::list<std::pair<SpellBook*, int>> spells)
 	{
 		this->items = items;
 		this->weapons = weapons;
 		this->armour = armour;
+		this->spells = spells;
 	}
 
 	// Remove all items from the inventory, destroying them in the process
@@ -44,6 +48,7 @@ public:
 		this->items.clear();
 		this->weapons.clear();
 		this->armour.clear();
+		this->spells.clear();
 	}
 
 	// Add an item to the inventory, specified by a pointer to it
@@ -93,6 +98,20 @@ public:
 		this->armour.push_back(std::make_pair(armour, count));
 	}
 
+	// Same as for items
+	void add_spell(SpellBook* spell, int count)
+	{
+		for (auto& it : this->spells)
+		{
+			if (it.first == spell)
+			{
+				it.second += count;
+				return;
+			}
+		}
+		this->spells.push_back(std::make_pair(spell, count));
+	}
+
 	// Remove the specified number of items from the inventory
 	void remove_item(Item* item, int count)
 	{
@@ -134,6 +153,19 @@ public:
 			if (it.first == armour) it.second -= count;
 		}
 		this->armour.remove_if([](std::pair<Armour*, int>& element)
+		{
+			return element.second < 1;
+		});
+	}
+
+	// Same as for items
+	void remove_spell(SpellBook* spell, int count)
+	{
+		for (auto& it : this->spells)
+		{
+			if (it.first == spell) it.second -= count;
+		}
+		this->spells.remove_if([](std::pair<SpellBook*, int>& element)
 		{
 			return element.second < 1;
 		});
@@ -219,13 +251,30 @@ public:
 		return this->armour.size();
 	}
 
+	// Same as for items
+	int print_spells(bool label = false)
+	{
+		unsigned int i = 1;
+
+		for (auto it : this->spells)
+		{
+			if (label) std::cout << i++ << ": ";
+			std::cout << it.first->name << " (" << it.second << ") ";
+			std::cout << "+DMG: (" << it.first->damage[0] << "d" << it.first->damage[1] << ")" << std::endl;
+			std::cout << it.first->description << std::endl;
+		}
+
+		return this->spells.size();
+	}
+
 	// Print the entire inventory; items, then weapons, then armour,
 	// but if the inventory is empty then output "Nothing"
 	void print(bool label = false)
 	{
 		if (this->items.size() == 0 &&
 			this->weapons.size() == 0 &&
-			this->armour.size() == 0)
+			this->armour.size() == 0 &&
+			this->spells.size() == 0)
 		{
 			std::cout << "Nothing" << std::endl;
 		}
@@ -234,6 +283,7 @@ public:
 			this->print_items(label);
 			this->print_weapons(label);
 			this->print_armour(label);
+			this->print_spells(label);
 		}
 
 		return;

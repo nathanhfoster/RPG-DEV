@@ -1,8 +1,8 @@
 ﻿  Main.cpp
-c:\users\natei\onedrive\technical\programming\rpg-dev\rpg-dev\rpg-dev\dialogue.hpp(31): warning C4018: '<': signed/unsigned mismatch
-c:\users\natei\onedrive\technical\programming\rpg-dev\rpg-dev\rpg-dev\dialogue.hpp(44): warning C4018: '<=': signed/unsigned mismatch
-c:\users\natei\onedrive\technical\programming\rpg-dev\rpg-dev\rpg-dev\battle.hpp(65): warning C4018: '<': signed/unsigned mismatch
-c:\users\natei\onedrive\technical\programming\rpg-dev\rpg-dev\rpg-dev\battle.hpp(100): warning C4018: '>=': signed/unsigned mismatch
-c:\users\natei\onedrive\technical\programming\rpg-dev\rpg-dev\rpg-dev\main.cpp(44): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  RPG-DEV.vcxproj -> C:\Users\natei\OneDrive\Technical\Programming\RPG-DEV\RPG-DEV\Debug\RPG-DEV.exe
-  RPG-DEV.vcxproj -> C:\Users\natei\OneDrive\Technical\Programming\RPG-DEV\RPG-DEV\Debug\RPG-DEV.pdb (Partial PDB)
+c:\users\natei\source\repos\rpg-dev\rpg-dev\dialogue.hpp(31): warning C4018: '<': signed/unsigned mismatch
+c:\users\natei\source\repos\rpg-dev\rpg-dev\dialogue.hpp(44): warning C4018: '<=': signed/unsigned mismatch
+c:\users\natei\source\repos\rpg-dev\rpg-dev\battle.hpp(65): warning C4018: '<': signed/unsigned mismatch
+c:\users\natei\source\repos\rpg-dev\rpg-dev\battle.hpp(100): warning C4018: '>=': signed/unsigned mismatch
+c:\users\natei\source\repos\rpg-dev\rpg-dev\main.cpp(46): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  RPG-DEV.vcxproj -> C:\Users\natei\Source\Repos\RPG-DEV\Debug\RPG-DEV.exe
+  RPG-DEV.vcxproj -> C:\Users\natei\Source\Repos\RPG-DEV\Debug\RPG-DEV.pdb (Partial PDB)
