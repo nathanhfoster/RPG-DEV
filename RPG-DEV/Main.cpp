@@ -284,7 +284,7 @@ void dialogue_menu(Creature& player)
 				}
 			}
 		}
-		// Equip a weapon, using the same algorithms as for armour
+		// Equip a spell, using the same algorithms as for armour
 		else if (result2 == 3)
 		{
 			int userInput = 0;

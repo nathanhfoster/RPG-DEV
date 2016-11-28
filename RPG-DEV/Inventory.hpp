@@ -195,6 +195,11 @@ public:
 		{
 			this->add_armour(it.first, it.second);
 		}
+		// Do the same for the spells
+		for (auto it : inventory->spells)
+		{
+			this->add_spell(it.first, it.second);
+		}
 
 		return;
 	}
